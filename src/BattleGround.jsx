@@ -7,23 +7,43 @@ import Cell from "./components/Cell";
 
 function BattleGround() {
   const [result, setResult] = useState("nothing");
-  let UserShip = new Players("Manish", { x: 0, y: "C" });
-  let CompShip = new Players("Computer", { x: 4, y: "D" });
-  let playerName = window.location.pathname.slice(14);
-  console.log(playerName);
-
-  function handleStatus(position) {
+  let UserName = "";
+  let coordinates = "";
+  for (let i = 0; i < window.location.pathname.slice(48).length; i++) {
     if (
-      position.x === CompShip.playerGameBoard.coordinates.x &&
-      position.y === CompShip.playerGameBoard.coordinates.y
+      Number(window.location.pathname.slice(48)[i]) ||
+      window.location.pathname.slice(48)[i] === "0" ||
+      window.location.pathname.slice(48)[i] === "%"
     ) {
-      setResult("win");
+      if (window.location.pathname.slice(48)[i] === "%") {
+        UserName += " ";
+      }
+      continue;
+    } else {
+      UserName += window.location.pathname.slice(48)[i];
     }
   }
+  for (let i = 0; i < window.location.pathname.slice(48).length; i++) {
+    if (
+      Number(window.location.pathname.slice(48)[i]) ||
+      window.location.pathname.slice(48)[i] === "0" ||
+      window.location.pathname.slice(48)[i] === "%"
+    ) {
+      if (window.location.pathname.slice(48)[i] === "%") {
+        UserName += " ";
+      }
+      continue;
+    } else {
+      UserName += window.location.pathname.slice(48)[i];
+    }
+  }
+  console.log(window.location.pathname);
+  let userPlayer = new Players(UserName);
+
+  function handleStatus(position) {}
 
   return (
     <>
-      {result === "win" ? <div>WINNN HURRAY</div> : null}
       <div className="play-ground">
         <div className="player">
           <div className="horizontal-strip"></div>

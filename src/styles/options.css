@@ -4,6 +4,11 @@
   column-gap: 1px;
 }
 
+.blueprint{
+  
+}
+
+
 .options-of-ships {
   display: flex;
   flex-direction: column;

@@ -13,7 +13,7 @@ function CredentialForm() {
           }}
           placeholder="Enter Your Name"
         />
-        <Link to={`/RegisteringCoordinates`}>
+        <Link to={`/RegisteringCoordinates/${inputName}`}>
           <button>Enter</button>
         </Link>
       </div>

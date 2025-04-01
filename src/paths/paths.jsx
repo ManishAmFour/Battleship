@@ -6,7 +6,7 @@ import RegisteringCoordinates from "../components/RegistringCoordinates";
 let router = createBrowserRouter([
   { element: <CredentialForm />, path: "/" },
   { element: <BattleGround />, path: "/BattleGround/:id" },
-  { element: <RegisteringCoordinates />, path: "/RegisteringCoordinates" },
+  { element: <RegisteringCoordinates />, path: "/RegisteringCoordinates/:id" },
 ]);
 
 export default router;
