@@ -1,0 +1,17 @@
+.longest-ship {
+  display: flex;
+
+  column-gap: 1px;
+}
+
+.options-of-ships {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.longest-ship-block {
+  height: 40px;
+  width: 40px;
+  background-color: green;
+}

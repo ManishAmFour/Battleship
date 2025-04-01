@@ -6,12 +6,28 @@
   flex-direction: column;
   row-gap: 10px;
 }
-.blocks-within {
+
+.play-ground {
+  display: flex;
+  margin-top: 100px;
+
+  justify-content: center;
+  column-gap: 100px;
+}
+
+.blocks-within-unchecked {
   height: 40px;
   width: 40px;
   background-color: black;
 }
-.blocks-within:hover {
+
+.blocks-within-checked {
+  height: 40px;
+  width: 40px;
+  background-color: green;
+}
+
+.blocks-within-unchecked:hover {
   cursor: pointer;
   background-color: bisque;
 }
@@ -19,4 +35,14 @@
 .horizontal-strip {
   display: flex;
   column-gap: 12px;
+}
+
+@media screen and (max-width: 700px) {
+  .play-ground {
+    margin-top: 100px;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+  }
 }
