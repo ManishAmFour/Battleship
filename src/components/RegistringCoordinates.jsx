@@ -36,6 +36,75 @@ function RegisteringCoordinates() {
     { position: { x: 4, y: "F" }, mark: "unmark" },
   ]);
   let UserName = window.location.pathname.slice(24);
+  let randomPosition = Math.floor(Math.random() * 30);
+  let randomValue;
+  Mark.forEach((value, index) => {
+    if (randomPosition === index) {
+      randomValue = value.position;
+    }
+  });
+
+  /*if (0 < randomPosition && randomPosition <= 1) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  } else if (1 < randomPosition && randomPosition <= 2) {
+    randomPosition;
+  }*/
 
   function registringThePlayer(position) {
     let NewArray = [...Mark];
@@ -60,7 +129,9 @@ function RegisteringCoordinates() {
                       key={JSON.stringify(value.position)}
                       to={`/BattleGround/${JSON.stringify(
                         value.position
-                      )}${JSON.stringify(UserName)}`}
+                      )}${JSON.stringify(UserName)}${JSON.stringify(
+                        randomValue
+                      )}`}
                     >
                       <div
                         onClick={() => {
@@ -114,7 +185,9 @@ function RegisteringCoordinates() {
                       key={JSON.stringify(value.position)}
                       to={`/BattleGround/${JSON.stringify(
                         value.position
-                      )}${JSON.stringify(UserName)}`}
+                      )}${JSON.stringify(UserName)}${JSON.stringify(
+                        randomValue
+                      )}`}
                     >
                       <div
                         onClick={() => {
@@ -141,7 +214,9 @@ function RegisteringCoordinates() {
                       key={JSON.stringify(value.position)}
                       to={`/BattleGround/${JSON.stringify(
                         value.position
-                      )}${JSON.stringify(UserName)}`}
+                      )}${JSON.stringify(UserName)}${JSON.stringify(
+                        randomValue
+                      )}`}
                     >
                       <div
                         onClick={() => {
@@ -168,7 +243,9 @@ function RegisteringCoordinates() {
                       key={JSON.stringify(value.position)}
                       to={`/BattleGround/${JSON.stringify(
                         value.position
-                      )}${JSON.stringify(UserName)}`}
+                      )}${JSON.stringify(UserName)}${JSON.stringify(
+                        randomValue
+                      )}`}
                     >
                       <div
                         onClick={() => {

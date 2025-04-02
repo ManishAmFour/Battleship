@@ -2,45 +2,33 @@ import "./styles/battleship.css";
 import GameBoard from "./components/Gameboards";
 import Players from "./components/players";
 import Ship from "./components/Ship";
-import { useState } from "react";
+import { use, useState } from "react";
 import Cell from "./components/Cell";
+import { useParams } from "react-router";
+import AiCell from "./components/AiCell";
 
 function BattleGround() {
-  const [result, setResult] = useState("nothing");
-  let UserName = "";
-  let coordinates = "";
-  for (let i = 0; i < window.location.pathname.slice(48).length; i++) {
-    if (
-      Number(window.location.pathname.slice(48)[i]) ||
-      window.location.pathname.slice(48)[i] === "0" ||
-      window.location.pathname.slice(48)[i] === "%"
-    ) {
-      if (window.location.pathname.slice(48)[i] === "%") {
-        UserName += " ";
-      }
-      continue;
-    } else {
-      UserName += window.location.pathname.slice(48)[i];
-    }
-  }
-  for (let i = 0; i < window.location.pathname.slice(48).length; i++) {
-    if (
-      Number(window.location.pathname.slice(48)[i]) ||
-      window.location.pathname.slice(48)[i] === "0" ||
-      window.location.pathname.slice(48)[i] === "%"
-    ) {
-      if (window.location.pathname.slice(48)[i] === "%") {
-        UserName += " ";
-      }
-      continue;
-    } else {
-      UserName += window.location.pathname.slice(48)[i];
-    }
-  }
-  console.log(window.location.pathname);
-  let userPlayer = new Players(UserName);
+  const [userComp, setParentComp] = useState("");
+  const [AiComp, setAiComp] = useState("");
 
-  function handleStatus(position) {}
+  const { id } = useParams();
+  let UserName = "";
+
+  for (let i = 16; i < id.length; i++) {
+    if (id[i] === '"') {
+      break;
+    } else {
+      UserName += id[i];
+    }
+  }
+
+  let coordinates = JSON.parse(id.slice(0, 15));
+  let randomValue = JSON.parse(id.slice(-15));
+
+  let userPlayer = new Players(UserName, coordinates);
+  let CompPlayer = new Players("computer", randomValue);
+  userPlayer.playerGameBoard.receiveAttack(userComp);
+  console.log(userPlayer.playerGameBoard.MissedAttacks);
 
   return (
     <>
@@ -48,44 +36,44 @@ function BattleGround() {
         <div className="player">
           <div className="horizontal-strip"></div>
           <div className="horizontal-strip">
-            <Cell position={{ x: 0, y: "A" }} />
-            <Cell position={{ x: 0, y: "B" }} />
-            <Cell position={{ x: 0, y: "C" }} />
-            <Cell position={{ x: 0, y: "D" }} />
-            <Cell position={{ x: 0, y: "E" }} />
-            <Cell position={{ x: 0, y: "F" }} />
+            <AiCell position={{ x: 0, y: "A" }} />
+            <AiCell position={{ x: 0, y: "B" }} />
+            <AiCell position={{ x: 0, y: "C" }} />
+            <AiCell position={{ x: 0, y: "D" }} />
+            <AiCell position={{ x: 0, y: "E" }} />
+            <AiCell position={{ x: 0, y: "F" }} />
           </div>
           <div className="horizontal-strip">
-            <Cell position={{ x: 1, y: "A" }} />
-            <Cell position={{ x: 1, y: "B" }} />
-            <Cell position={{ x: 1, y: "C" }} />
-            <Cell position={{ x: 1, y: "D" }} />
-            <Cell position={{ x: 1, y: "E" }} />
-            <Cell position={{ x: 1, y: "F" }} />
+            <AiCell position={{ x: 1, y: "A" }} />
+            <AiCell position={{ x: 1, y: "B" }} />
+            <AiCell position={{ x: 1, y: "C" }} />
+            <AiCell position={{ x: 1, y: "D" }} />
+            <AiCell position={{ x: 1, y: "E" }} />
+            <AiCell position={{ x: 1, y: "F" }} />
           </div>
           <div className="horizontal-strip">
-            <Cell position={{ x: 2, y: "A" }} />
-            <Cell position={{ x: 2, y: "B" }} />
-            <Cell position={{ x: 2, y: "C" }} />
-            <Cell position={{ x: 2, y: "D" }} />
-            <Cell position={{ x: 2, y: "E" }} />
-            <Cell position={{ x: 2, y: "F" }} />
+            <AiCell position={{ x: 2, y: "A" }} />
+            <AiCell position={{ x: 2, y: "B" }} />
+            <AiCell position={{ x: 2, y: "C" }} />
+            <AiCell position={{ x: 2, y: "D" }} />
+            <AiCell position={{ x: 2, y: "E" }} />
+            <AiCell position={{ x: 2, y: "F" }} />
           </div>
           <div className="horizontal-strip">
-            <Cell position={{ x: 3, y: "A" }} />
-            <Cell position={{ x: 3, y: "B" }} />
-            <Cell position={{ x: 3, y: "C" }} />
-            <Cell position={{ x: 3, y: "D" }} />
-            <Cell position={{ x: 3, y: "E" }} />
-            <Cell position={{ x: 3, y: "F" }} />
+            <AiCell position={{ x: 3, y: "A" }} />
+            <AiCell position={{ x: 3, y: "B" }} />
+            <AiCell position={{ x: 3, y: "C" }} />
+            <AiCell position={{ x: 3, y: "D" }} />
+            <AiCell position={{ x: 3, y: "E" }} />
+            <AiCell position={{ x: 3, y: "F" }} />
           </div>
           <div className="horizontal-strip">
-            <Cell position={{ x: 4, y: "A" }} />
-            <Cell position={{ x: 4, y: "B" }} />
-            <Cell position={{ x: 4, y: "C" }} />
-            <Cell position={{ x: 4, y: "D" }} />
-            <Cell position={{ x: 4, y: "E" }} />
-            <Cell position={{ x: 4, y: "F" }} />
+            <AiCell position={{ x: 4, y: "A" }} />
+            <AiCell position={{ x: 4, y: "B" }} />
+            <AiCell position={{ x: 4, y: "C" }} />
+            <AiCell />
+            <AiCell position={{ x: 4, y: "E" }} />
+            <AiCell position={{ x: 4, y: "F" }} />
           </div>
         </div>
       </div>
@@ -93,44 +81,164 @@ function BattleGround() {
         <div className="player">
           <div className="horizontal-strip"></div>
           <div className="horizontal-strip">
-            <Cell position={{ x: 0, y: "A" }} />
-            <Cell position={{ x: 0, y: "B" }} />
-            <Cell position={{ x: 0, y: "C" }} />
-            <Cell position={{ x: 0, y: "D" }} />
-            <Cell position={{ x: 0, y: "E" }} />
-            <Cell position={{ x: 0, y: "F" }} />
+            <Cell
+              position={{ x: 0, y: "A" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 0, y: "B" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 0, y: "C" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 0, y: "D" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 0, y: "E" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 0, y: "F" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
           </div>
           <div className="horizontal-strip">
-            <Cell position={{ x: 1, y: "A" }} />
-            <Cell position={{ x: 1, y: "B" }} />
-            <Cell position={{ x: 1, y: "C" }} />
-            <Cell position={{ x: 1, y: "D" }} />
-            <Cell position={{ x: 1, y: "E" }} />
-            <Cell position={{ x: 1, y: "F" }} />
+            <Cell
+              position={{ x: 1, y: "A" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 1, y: "B" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 1, y: "C" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 1, y: "D" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 1, y: "E" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 1, y: "F" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
           </div>
           <div className="horizontal-strip">
-            <Cell position={{ x: 2, y: "A" }} />
-            <Cell position={{ x: 2, y: "B" }} />
-            <Cell position={{ x: 2, y: "C" }} />
-            <Cell position={{ x: 2, y: "D" }} />
-            <Cell position={{ x: 2, y: "E" }} />
-            <Cell position={{ x: 2, y: "F" }} />
+            <Cell
+              position={{ x: 2, y: "A" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 2, y: "B" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 2, y: "C" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 2, y: "D" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 2, y: "E" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 2, y: "F" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
           </div>
           <div className="horizontal-strip">
-            <Cell position={{ x: 3, y: "A" }} />
-            <Cell position={{ x: 3, y: "B" }} />
-            <Cell position={{ x: 3, y: "C" }} />
-            <Cell position={{ x: 3, y: "D" }} />
-            <Cell position={{ x: 3, y: "E" }} />
-            <Cell position={{ x: 3, y: "F" }} />
+            <Cell
+              position={{ x: 3, y: "A" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 3, y: "B" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 3, y: "C" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 3, y: "D" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 3, y: "E" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 3, y: "F" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
           </div>
           <div className="horizontal-strip">
-            <Cell position={{ x: 4, y: "A" }} />
-            <Cell position={{ x: 4, y: "B" }} />
-            <Cell position={{ x: 4, y: "C" }} />
-            <Cell Onclick={handleStatus} position={{ x: 4, y: "D" }} />
-            <Cell position={{ x: 4, y: "E" }} />
-            <Cell position={{ x: 4, y: "F" }} />
+            <Cell
+              position={{ x: 4, y: "A" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 4, y: "B" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 4, y: "C" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 4, y: "D" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 4, y: "E" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
+            <Cell
+              position={{ x: 4, y: "F" }}
+              enemyPosition={userPlayer}
+              stateUpdation={setParentComp}
+            />
           </div>
         </div>
       </div>
