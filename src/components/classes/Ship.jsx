@@ -4,15 +4,16 @@ class Ship {
     this.hits = hits;
     this.status = status;
   }
-  hit() {
-    this.hits++;
-  }
   isSunk() {
     if (this.length === this.hits) {
       this.status = true;
-    } else {
+    } else if (this.length !== this.hits) {
       this.status = false;
     }
+  }
+  hit() {
+    this.hits++;
+    this.isSunk();
   }
 }
 

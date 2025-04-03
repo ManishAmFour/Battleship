@@ -158,7 +158,9 @@ function RegisteringCoordinates() {
                       key={JSON.stringify(value.position)}
                       to={`/BattleGround/${JSON.stringify(
                         value.position
-                      )}${JSON.stringify(UserName)}`}
+                      )}${JSON.stringify(UserName)}${JSON.stringify(
+                        randomValue
+                      )}`}
                     >
                       <div
                         onClick={() => {

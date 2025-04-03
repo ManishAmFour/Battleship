@@ -7,7 +7,7 @@ class GameBoard {
 
   receiveAttack(coordinates) {
     if (
-      coordinates.x !== this.coordinates.x &&
+      coordinates.x !== this.coordinates.x ||
       coordinates.y !== this.coordinates.y
     ) {
       this.MissedAttacks.push(coordinates);

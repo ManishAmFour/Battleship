@@ -4,9 +4,7 @@ function AiCell(props) {
   return (
     <>
       <div
-        onClick={() => {
-          console.log(`props.Onclick`);
-        }}
+       
         className={`${position}
           ${"blocks-within-unchecked-ai"}`}
       ></div>
