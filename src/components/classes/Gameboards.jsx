@@ -6,16 +6,14 @@ class GameBoard {
   }
 
   receiveAttack(coordinates) {
-    if (
-      coordinates.x !== this.coordinates.x ||
-      coordinates.y !== this.coordinates.y
-    ) {
-      this.MissedAttacks.push(coordinates);
-    } else if (
-      coordinates.x === this.coordinates.x &&
-      coordinates.y === this.coordinates.y
-    ) {
+    let StringiyfiedCoordinates = this.coordinates.map((value) => {
+      return JSON.stringify(value);
+    });
+    if (StringiyfiedCoordinates.includes(JSON.stringify(coordinates))) {
+      console.log("hit");
       this.ship.hit();
+    } else {
+      this.MissedAttacks.push(coordinates);
     }
   }
 }

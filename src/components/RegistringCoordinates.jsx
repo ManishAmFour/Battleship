@@ -1,6 +1,7 @@
 import "../styles/options.css";
 import { Link } from "react-router";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
 
 function RegisteringCoordinates() {
   const [Mark, setMark] = useState([
@@ -35,85 +36,99 @@ function RegisteringCoordinates() {
     { position: { x: 4, y: "E" }, mark: "unmark" },
     { position: { x: 4, y: "F" }, mark: "unmark" },
   ]);
+  const navigate = useNavigate();
+  const [selectedShip, setSelectedShip] = useState("small-ship");
+  const [selectedValues, setSelectedValues] = useState([]);
   let UserName = window.location.pathname.slice(24);
-  let randomPosition = Math.floor(Math.random() * 30);
-  let randomValue;
-  Mark.forEach((value, index) => {
-    if (randomPosition === index) {
-      randomValue = value.position;
-    }
-  });
 
-  /*if (0 < randomPosition && randomPosition <= 1) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  } else if (1 < randomPosition && randomPosition <= 2) {
-    randomPosition;
-  }*/
+  useEffect(() => {
+    if (selectedShip === "selection-done") {
+      let CompCoordinates = [];
+      for (let i = 0; i < 6; i++) {
+        let randomValue = Math.floor(Math.random() * 30);
+        Math.floor(Math.random() * 30);
+        CompCoordinates.push(Mark[randomValue].position);
 
-  function registringThePlayer(position) {
-    let NewArray = [...Mark];
-    NewArray.forEach((value) => {
-      if (value.position.x === position.x && value.position.y === position.y) {
-        value.mark = "mark";
+        let finalResult = CompCoordinates.concat(selectedValues);
+        navigate(`/BattleGround/${JSON.stringify(finalResult)}`);
       }
-    });
-    setMark(NewArray);
+    }
+  }, [selectedShip]);
+
+  function registringThePlayer(position, index) {
+    if (selectedShip === "small-ship") {
+      let NewArray = [...Mark];
+      NewArray.forEach((value) => {
+        if (
+          value.position.x === position.x &&
+          value.position.y === position.y
+        ) {
+          let NewSelectedValues = [...selectedValues];
+          NewSelectedValues.push(value.position);
+          setSelectedValues(NewSelectedValues);
+          value.mark = "mark";
+          setSelectedShip("medium-ship");
+          setMark(NewArray);
+        }
+      });
+    } else if (selectedShip === "medium-ship") {
+      let NewArray = [...Mark];
+      if (
+        NewArray[index].mark !== "mark" &&
+        (NewArray[index - 1].mark !== "mark" ||
+          NewArray[index + 1].mark !== "mark")
+      ) {
+        if (
+          NewArray[index].mark !== "mark" &&
+          NewArray[index - 1].mark !== "mark"
+        ) {
+          let NewSelectedValues = [...selectedValues];
+          NewSelectedValues.push(NewArray[index].position);
+          NewSelectedValues.push(NewArray[index - 1].position);
+
+          setSelectedValues(NewSelectedValues);
+          NewArray[index].mark = "mark";
+          NewArray[index - 1].mark = "mark";
+          setSelectedShip("long-ship");
+
+          setMark(NewArray);
+        }
+        if (
+          NewArray[index].mark !== "mark" &&
+          NewArray[index + 1].mark !== "mark"
+        ) {
+          let NewSelectedValues = [...selectedValues];
+
+          NewSelectedValues.push(NewArray[index].position);
+          NewSelectedValues.push(NewArray[index + 1].position);
+          setSelectedValues(NewSelectedValues);
+          NewArray[index].mark = "mark";
+          NewArray[index + 1].mark = "mark";
+          setSelectedShip("long-ship");
+
+          setMark(NewArray);
+        }
+      }
+    } else if (selectedShip === "long-ship") {
+      let NewArray = [...Mark];
+
+      if (
+        NewArray[index].mark !== "mark" &&
+        NewArray[index - 1].mark !== "mark" &&
+        NewArray[index + 1].mark !== "mark"
+      ) {
+        let NewSelectedValues = [...selectedValues];
+        NewSelectedValues.push(NewArray[index].position);
+        NewSelectedValues.push(NewArray[index - 1].position);
+        NewSelectedValues.push(NewArray[index + 1].position);
+        setSelectedValues(NewSelectedValues);
+        NewArray[index].mark = "mark";
+        NewArray[index + 1].mark = "mark";
+        NewArray[index - 1].mark = "mark";
+        setMark(NewArray);
+        setSelectedShip("selection-done");
+      }
+    }
   }
 
   return (
@@ -122,20 +137,13 @@ function RegisteringCoordinates() {
         {
           <div className="player">
             <div className="horizontal-strip">
-              {Mark.map((value) => {
+              {Mark.map((value, index) => {
                 if (value.position.x === 0) {
                   return (
-                    <Link
-                      key={JSON.stringify(value.position)}
-                      to={`/BattleGround/${JSON.stringify(
-                        value.position
-                      )}${JSON.stringify(UserName)}${JSON.stringify(
-                        randomValue
-                      )}`}
-                    >
+                    <div key={JSON.stringify(value.position)}>
                       <div
                         onClick={() => {
-                          registringThePlayer(value.position);
+                          registringThePlayer(value.position, index);
                         }}
                         className={
                           value.mark === "mark"
@@ -143,7 +151,7 @@ function RegisteringCoordinates() {
                             : "blocks-within-unchecked"
                         }
                       ></div>
-                    </Link>
+                    </div>
                   );
                 } else {
                   return;
@@ -151,20 +159,13 @@ function RegisteringCoordinates() {
               })}
             </div>
             <div className="horizontal-strip">
-              {Mark.map((value) => {
+              {Mark.map((value, index) => {
                 if (value.position.x === 1) {
                   return (
-                    <Link
-                      key={JSON.stringify(value.position)}
-                      to={`/BattleGround/${JSON.stringify(
-                        value.position
-                      )}${JSON.stringify(UserName)}${JSON.stringify(
-                        randomValue
-                      )}`}
-                    >
+                    <div key={JSON.stringify(value.position)}>
                       <div
                         onClick={() => {
-                          registringThePlayer(value.position);
+                          registringThePlayer(value.position, index);
                         }}
                         className={
                           value.mark === "mark"
@@ -172,7 +173,7 @@ function RegisteringCoordinates() {
                             : "blocks-within-unchecked"
                         }
                       ></div>
-                    </Link>
+                    </div>
                   );
                 } else {
                   return;
@@ -180,20 +181,13 @@ function RegisteringCoordinates() {
               })}
             </div>
             <div className="horizontal-strip">
-              {Mark.map((value) => {
+              {Mark.map((value, index) => {
                 if (value.position.x === 2) {
                   return (
-                    <Link
-                      key={JSON.stringify(value.position)}
-                      to={`/BattleGround/${JSON.stringify(
-                        value.position
-                      )}${JSON.stringify(UserName)}${JSON.stringify(
-                        randomValue
-                      )}`}
-                    >
+                    <div key={JSON.stringify(value.position)}>
                       <div
                         onClick={() => {
-                          registringThePlayer(value.position);
+                          registringThePlayer(value.position, index);
                         }}
                         className={
                           value.mark === "mark"
@@ -201,7 +195,7 @@ function RegisteringCoordinates() {
                             : "blocks-within-unchecked"
                         }
                       ></div>
-                    </Link>
+                    </div>
                   );
                 } else {
                   return;
@@ -209,20 +203,13 @@ function RegisteringCoordinates() {
               })}
             </div>
             <div className="horizontal-strip">
-              {Mark.map((value) => {
+              {Mark.map((value, index) => {
                 if (value.position.x === 3) {
                   return (
-                    <Link
-                      key={JSON.stringify(value.position)}
-                      to={`/BattleGround/${JSON.stringify(
-                        value.position
-                      )}${JSON.stringify(UserName)}${JSON.stringify(
-                        randomValue
-                      )}`}
-                    >
+                    <div key={JSON.stringify(value.position)}>
                       <div
                         onClick={() => {
-                          registringThePlayer(value.position);
+                          registringThePlayer(value.position, index);
                         }}
                         className={
                           value.mark === "mark"
@@ -230,7 +217,7 @@ function RegisteringCoordinates() {
                             : "blocks-within-unchecked"
                         }
                       ></div>
-                    </Link>
+                    </div>
                   );
                 } else {
                   return;
@@ -238,20 +225,13 @@ function RegisteringCoordinates() {
               })}
             </div>
             <div className="horizontal-strip">
-              {Mark.map((value) => {
+              {Mark.map((value, index) => {
                 if (value.position.x === 4) {
                   return (
-                    <Link
-                      key={JSON.stringify(value.position)}
-                      to={`/BattleGround/${JSON.stringify(
-                        value.position
-                      )}${JSON.stringify(UserName)}${JSON.stringify(
-                        randomValue
-                      )}`}
-                    >
+                    <div key={JSON.stringify(value.position)}>
                       <div
                         onClick={() => {
-                          registringThePlayer(value.position);
+                          registringThePlayer(value.position, index);
                         }}
                         className={
                           value.mark === "mark"
@@ -259,7 +239,7 @@ function RegisteringCoordinates() {
                             : "blocks-within-unchecked"
                         }
                       ></div>
-                    </Link>
+                    </div>
                   );
                 } else {
                   return;
@@ -271,9 +251,42 @@ function RegisteringCoordinates() {
       </div>
       <div className="options-of-ships">
         Choose The positioning of the ship
-        <div className="longest-ship medium-ship">
-          <div className="longest-ship-block medium-ship-block"></div>
-        </div>
+        {selectedShip === "small-ship" ? (
+          <div className="longest-ship medium-ship">
+            <div className="longest-ship-block medium-ship-block"></div>
+            <p>select one value</p>
+          </div>
+        ) : (
+          <div>
+            <div className="longest-ship-block medium-ship-block"></div>
+          </div>
+        )}
+        {selectedShip === "medium-ship" ? (
+          <div className="longest-ship medium-ship">
+            <div className="longest-ship-block medium-ship-block"></div>
+            <div className="longest-ship-block medium-ship-block"></div>
+            <p>select one value</p>
+          </div>
+        ) : (
+          <div className="longest-ship medium-ship">
+            <div className="longest-ship-block medium-ship-block"></div>
+            <div className="longest-ship-block medium-ship-block"></div>
+          </div>
+        )}
+        {selectedShip === "long-ship" ? (
+          <div className="longest-ship medium-ship">
+            <div className="longest-ship-block medium-ship-block"></div>
+            <div className="longest-ship-block medium-ship-block"></div>
+            <div className="longest-ship-block medium-ship-block"></div>
+            <p>select one value</p>
+          </div>
+        ) : (
+          <div className="longest-ship medium-ship">
+            <div className="longest-ship-block medium-ship-block"></div>
+            <div className="longest-ship-block medium-ship-block"></div>
+            <div className="longest-ship-block medium-ship-block"></div>
+          </div>
+        )}
       </div>
     </div>
   );

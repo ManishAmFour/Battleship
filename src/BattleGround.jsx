@@ -9,14 +9,27 @@ import AiCell from "./components/AiCell";
 
 function BattleGround() {
   const { id } = useParams();
-  let UserName = "";
-  for (let i = 16; i < id.length; i++) {
-    if (id[i] === '"') {
-      break;
-    } else {
-      UserName += id[i];
-    }
-  }
+  let resultantArray = JSON.parse(id);
+  let PlayerCoordinates = resultantArray
+    .map((value, index) => {
+      if (index > 5) {
+        return value;
+      } else {
+        return null;
+      }
+    })
+    .filter((value) => value !== null);
+
+  let ComputerCoordinates = resultantArray
+    .map((value, index) => {
+      if (index <= 5) {
+        return value;
+      } else {
+        return null;
+      }
+    })
+    .filter((value) => value !== null);
+
   const [aiCell, setAiCell] = useState([
     { position: { x: 0, y: "A" }, mark: "unmark" },
     { position: { x: 0, y: "B" }, mark: "unmark" },
@@ -49,37 +62,39 @@ function BattleGround() {
     { position: { x: 4, y: "E" }, mark: "unmark" },
     { position: { x: 4, y: "F" }, mark: "unmark" },
   ]);
-  const [markedValue, setMarkedValue] = useState();
-  const [userPlayer, setParentComp] = useState(
-    new Players(UserName, JSON.parse(id.slice(0, 15)))
-  );
-  const [CompPlayer, setAiComp] = useState(
-    new Players("computer", JSON.parse(id.slice(-15)))
-  );
+  const userPlayer = new Players("player", PlayerCoordinates);
 
-  console.log(CompPlayer.playerGameBoard.coordinates);
+  const [CompPlayer, setAiComp] = useState(
+    new Players("computer", ComputerCoordinates)
+  );
+  let prevValue = new Players("computer", ComputerCoordinates);
 
   useEffect(() => {
-    let randomValue = Math.floor(Math.random() * 30);
+    if (prevValue !== CompPlayer) {
+     
+    }
 
+    //if(CompPlayer.playerGameBoard.MissedAttacks.length !== 0 || )
+
+    /*
     for (let i = 0; aiCell[randomValue].mark === "mark"; i++) {
       randomValue = Math.floor(Math.random() * 30);
     }
-
     if (CompPlayer.playerGameBoard.MissedAttacks.length !== 0) {
       if (aiCell[randomValue].mark === "unmark") {
         userPlayer.playerGameBoard.receiveAttack(aiCell[randomValue].position);
 
         let NewArray = [...aiCell];
         NewArray[randomValue].mark = "mark";
-        console.log(NewArray[randomValue].position);
         setAiCell(NewArray);
       }
-    }
+    }*/
   }, [CompPlayer]);
+
 
   return (
     <div>
+  
       {userPlayer.playerGameBoard.ship.status === true ? (
         <div>YOU LOST</div>
       ) : CompPlayer.playerGameBoard.ship.status === true ? (

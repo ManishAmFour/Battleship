@@ -1,6 +1,6 @@
-import { beforeAll, describe, expect, vi, it, vitest } from "vitest";
-import Ship from "../components/Ship.jsx";
-import GameBoard from "../components/Gameboards.jsx";
+import { beforeAll, describe, expect, vi, it, } from "vitest";
+import Ship from "../components/classes/Ship.jsx";
+import GameBoard from "../components/classes/Gameboards.jsx";
 
 describe("Ship's interaction", () => {
   let testShip;
