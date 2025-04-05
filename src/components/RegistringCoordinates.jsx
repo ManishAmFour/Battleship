@@ -161,11 +161,12 @@ function RegisteringCoordinates() {
                         onClick={() => {
                           registringThePlayer(value.position, index);
                         }}
-                        className={
-                          value.mark === "mark"
-                            ? "blocks-within-checked"
-                            : "blocks-within-unchecked"
-                        }
+                        className={`${"blocks-hover"}
+                          ${
+                            value.mark === "mark"
+                              ? "blocks-within-checked"
+                              : "blocks-within-unchecked"
+                          }`}
                       ></div>
                     </div>
                   );
@@ -186,11 +187,12 @@ function RegisteringCoordinates() {
                         onClick={() => {
                           registringThePlayer(value.position, index);
                         }}
-                        className={
+                        className={`${"blocks-hover"}
+                        ${
                           value.mark === "mark"
                             ? "blocks-within-checked"
                             : "blocks-within-unchecked"
-                        }
+                        }`}
                       ></div>
                     </div>
                   );
@@ -211,11 +213,12 @@ function RegisteringCoordinates() {
                         onClick={() => {
                           registringThePlayer(value.position, index);
                         }}
-                        className={
+                        className={`${"blocks-hover"}
+                        ${
                           value.mark === "mark"
                             ? "blocks-within-checked"
                             : "blocks-within-unchecked"
-                        }
+                        }`}
                       ></div>
                     </div>
                   );
@@ -236,11 +239,12 @@ function RegisteringCoordinates() {
                         onClick={() => {
                           registringThePlayer(value.position, index);
                         }}
-                        className={
+                        className={`${"blocks-hover"}
+                        ${
                           value.mark === "mark"
                             ? "blocks-within-checked"
                             : "blocks-within-unchecked"
-                        }
+                        }`}
                       ></div>
                     </div>
                   );
@@ -261,11 +265,12 @@ function RegisteringCoordinates() {
                         onClick={() => {
                           registringThePlayer(value.position, index);
                         }}
-                        className={
+                        className={`${"blocks-hover"}
+                        ${
                           value.mark === "mark"
                             ? "blocks-within-checked"
                             : "blocks-within-unchecked"
-                        }
+                        }`}
                       ></div>
                     </div>
                   );
@@ -278,43 +283,48 @@ function RegisteringCoordinates() {
         }
       </div>
       <div className="options-of-ships">
-        Choose The positioning of the ship
-        {selectedShip === "small-ship" ? (
-          <div className="longest-ship medium-ship">
-            <div className="longest-ship-block medium-ship-block"></div>
-            <p>select one value</p>
-          </div>
-        ) : (
-          <div>
-            <div className="longest-ship-block medium-ship-block"></div>
-          </div>
-        )}
-        {selectedShip === "medium-ship" ? (
-          <div className="longest-ship medium-ship">
-            <div className="longest-ship-block medium-ship-block"></div>
-            <div className="longest-ship-block medium-ship-block"></div>
-            <p>select one value</p>
-          </div>
-        ) : (
-          <div className="longest-ship medium-ship">
-            <div className="longest-ship-block medium-ship-block"></div>
-            <div className="longest-ship-block medium-ship-block"></div>
-          </div>
-        )}
-        {selectedShip === "long-ship" ? (
-          <div className="longest-ship medium-ship">
-            <div className="longest-ship-block medium-ship-block"></div>
-            <div className="longest-ship-block medium-ship-block"></div>
-            <div className="longest-ship-block medium-ship-block"></div>
-            <p>select one value</p>
-          </div>
-        ) : (
-          <div className="longest-ship medium-ship">
-            <div className="longest-ship-block medium-ship-block"></div>
-            <div className="longest-ship-block medium-ship-block"></div>
-            <div className="longest-ship-block medium-ship-block"></div>
-          </div>
-        )}
+        <p className="options-text">Choose The positioning of the ship</p>
+        <div className="options-list">
+          {selectedShip === "small-ship" ? (
+            <div className="longest-ship medium-ship">
+              <div className="longest-ship-block medium-ship-block"></div>
+              <p>select</p>
+            </div>
+          ) : (
+            <div>
+              <div className="longest-ship-block medium-ship-block"></div>
+            </div>
+          )}
+          {selectedShip === "medium-ship" ? (
+            <div className="longest-ship medium-ship">
+              <div className="medium-div">
+                <div className="longest-ship-block medium-ship-block"></div>
+                <div className="longest-ship-block medium-ship-block"></div>
+              </div>
+
+              <p>select</p>
+            </div>
+          ) : (
+            <div className="medium-div">
+              <div className="longest-ship-block medium-ship-block"></div>
+              <div className="longest-ship-block medium-ship-block"></div>
+            </div>
+          )}
+          {selectedShip === "long-ship" ? (
+            <div className="longest-ship medium-ship">
+              <div className="longest-ship-block medium-ship-block"></div>
+              <div className="longest-ship-block medium-ship-block"></div>
+              <div className="longest-ship-block medium-ship-block"></div>
+              <p>select</p>
+            </div>
+          ) : (
+            <div className="longest-ship medium-ship">
+              <div className="longest-ship-block medium-ship-block"></div>
+              <div className="longest-ship-block medium-ship-block"></div>
+              <div className="longest-ship-block medium-ship-block"></div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

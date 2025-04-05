@@ -1,10 +1,19 @@
 .player {
-  height: 290px;
   width: 300px;
   background-color: aqua;
   display: flex;
+  padding: 20px;
+  border-style: dotted;
+  border-color: white;
   flex-direction: column;
   row-gap: 10px;
+}
+
+
+.player-pos{
+  height: 40px;
+  width: 40px;
+  background-color: green;
 }
 
 .play-ground {
@@ -21,11 +30,6 @@
   background-color: black;
 }
 
-.blocks-within-unchecked-ai {
-  height: 40px;
-  width: 40px;
-  background-color: black;
-}
 
 
 .blocks-within-checked-ai {

@@ -20,38 +20,37 @@ function Cell(props) {
   }
 
   return (
-    <>
-      <div
-        onClick={() => {
-          let dontContinue = false;
-          for (
-            let i = 0;
-            i < props.enemyPosition.playerGameBoard.MissedAttacks.length;
-            i++
+    <div
+      onClick={() => {
+        let dontContinue = false;
+
+        for (
+          let i = 0;
+          i < props.enemyPosition.playerGameBoard.MissedAttacks.length;
+          i++
+        ) {
+          if (
+            position.x ===
+              props.enemyPosition.playerGameBoard.MissedAttacks[i].x &&
+            position.y ===
+              props.enemyPosition.playerGameBoard.MissedAttacks[i].y
           ) {
-            if (
-              position.x ===
-                props.enemyPosition.playerGameBoard.MissedAttacks[i].x &&
-              position.y ===
-                props.enemyPosition.playerGameBoard.MissedAttacks[i].y
-            ) {
-              dontContinue = true;
-              break;
-            }
+            dontContinue = true;
           }
-          if (!dontContinue) {
-            setStatus("checked");
-            checkTheStatus(position);
-          }
-        }}
-        className={`${position}
+        }
+
+        if (!dontContinue && cellStatus !== "checked") {
+          setStatus("checked");
+          checkTheStatus(position);
+        }
+      }}
+      className={`${position}
           ${
             cellStatus === "unchecked"
               ? "blocks-within-unchecked"
               : "blocks-within-checked"
           }`}
-      ></div>
-    </>
+    ></div>
   );
 }
 

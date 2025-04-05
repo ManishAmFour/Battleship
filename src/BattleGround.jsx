@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import Cell from "./components/Cell";
 import { Link, useParams } from "react-router";
 import AiCell from "./components/AiCell";
+import "./styles/status.css";
 
 function BattleGround() {
   const { id } = useParams();
@@ -70,6 +71,11 @@ function BattleGround() {
   const [CompPlayer, setAiComp] = useState(
     new Players("computer", ComputerCoordinates)
   );
+  let stringifiedPlayerPosition = userPlayer.playerGameBoard.coordinates.map(
+    (value) => {
+      return JSON.stringify(value);
+    }
+  );
 
   useEffect(() => {
     if (
@@ -92,36 +98,38 @@ function BattleGround() {
       setAiCell(NewArray);
       setBlock("user-turn");
     }
-    //if(CompPlayer.playerGameBoard.MissedAttacks.length !== 0 || )
-    /*
-    for (let i = 0; aiCell[randomValue].mark === "mark"; i++) {
-      randomValue = Math.floor(Math.random() * 30);
-    }
-    if (CompPlayer.playerGameBoard.MissedAttacks.length !== 0) {
-      if (aiCell[randomValue].mark === "unmark") {
-        userPlayer.playerGameBoard.receiveAttack(aiCell[randomValue].position);
-
-        let NewArray = [...aiCell];
-        NewArray[randomValue].mark = "mark";
-        setAiCell(NewArray);
-      }
-    }*/
   }, [CompPlayer]);
 
   return (
     <div>
       {userPlayer.playerGameBoard.ship.status === true ? (
-        <div>
-          <div>YOU LOST</div>
-          <Link to={"/RegisteringCoordinates/q"}>
-            <button>Restart the game</button>
-          </Link>
-          <Link to={"/"}>
-            <button>Restart from the Home page</button>
-          </Link>
+        <div className="status-div">
+          <div className="status-title lose-status"> YOU LOST</div>
+          <div className="return-buttons">
+            <Link to={"/RegisteringCoordinates/q"}>
+              <button className="restart-option">Restart the game</button>
+            </Link>
+            <Link to={"/"}>
+              <button className="restart-option-home">
+                Restart from the Home page
+              </button>
+            </Link>
+          </div>
         </div>
       ) : CompPlayer.playerGameBoard.ship.status === true ? (
-        <div>YOU WON</div>
+        <div className="status-div">
+          <div className="status-title win-status">YOU WON</div>
+          <div className="return-buttons">
+            <Link to={"/RegisteringCoordinates/q"}>
+              <button className="restart-option">Restart the game</button>
+            </Link>
+            <Link to={"/"}>
+              <button className="restart-option-home">
+                Restart from the Home page
+              </button>
+            </Link>
+          </div>
+        </div>
       ) : (
         <div>
           <div className="play-ground">
@@ -129,14 +137,30 @@ function BattleGround() {
               <div className="horizontal-strip">
                 {aiCell.map((value) => {
                   if (value.position.x === 0) {
-                    return (
+                    let marker = false;
+                    stringifiedPlayerPosition.forEach((position) => {
+                      if (JSON.stringify(value.position) === position) {
+                        marker = true;
+                      }
+                    });
+
+                    return marker ? (
                       <div
                         key={JSON.stringify(value.position)}
-                        className={
+                        className={` ${
+                          value.mark === "mark"
+                            ? "blocks-within-checked-ai"
+                            : "player-pos"
+                        }`}
+                      ></div>
+                    ) : (
+                      <div
+                        key={JSON.stringify(value.position)}
+                        className={` ${
                           value.mark === "mark"
                             ? "blocks-within-checked-ai"
                             : "blocks-within-unchecked-ai"
-                        }
+                        }`}
                       ></div>
                     );
                   } else {
@@ -147,14 +171,30 @@ function BattleGround() {
               <div className="horizontal-strip">
                 {aiCell.map((value) => {
                   if (value.position.x === 1) {
-                    return (
+                    let marker = false;
+                    stringifiedPlayerPosition.forEach((position) => {
+                      if (JSON.stringify(value.position) === position) {
+                        marker = true;
+                      }
+                    });
+
+                    return marker ? (
                       <div
                         key={JSON.stringify(value.position)}
-                        className={
+                        className={` ${
+                          value.mark === "mark"
+                            ? "blocks-within-checked-ai"
+                            : "player-pos"
+                        }`}
+                      ></div>
+                    ) : (
+                      <div
+                        key={JSON.stringify(value.position)}
+                        className={` ${
                           value.mark === "mark"
                             ? "blocks-within-checked-ai"
                             : "blocks-within-unchecked-ai"
-                        }
+                        }`}
                       ></div>
                     );
                   } else {
@@ -165,14 +205,30 @@ function BattleGround() {
               <div className="horizontal-strip">
                 {aiCell.map((value) => {
                   if (value.position.x === 2) {
-                    return (
+                    let marker = false;
+                    stringifiedPlayerPosition.forEach((position) => {
+                      if (JSON.stringify(value.position) === position) {
+                        marker = true;
+                      }
+                    });
+
+                    return marker ? (
                       <div
                         key={JSON.stringify(value.position)}
-                        className={
+                        className={` ${
+                          value.mark === "mark"
+                            ? "blocks-within-checked-ai"
+                            : "player-pos"
+                        }`}
+                      ></div>
+                    ) : (
+                      <div
+                        key={JSON.stringify(value.position)}
+                        className={` ${
                           value.mark === "mark"
                             ? "blocks-within-checked-ai"
                             : "blocks-within-unchecked-ai"
-                        }
+                        }`}
                       ></div>
                     );
                   } else {
@@ -183,14 +239,30 @@ function BattleGround() {
               <div className="horizontal-strip">
                 {aiCell.map((value) => {
                   if (value.position.x === 3) {
-                    return (
+                    let marker = false;
+                    stringifiedPlayerPosition.forEach((position) => {
+                      if (JSON.stringify(value.position) === position) {
+                        marker = true;
+                      }
+                    });
+
+                    return marker ? (
                       <div
                         key={JSON.stringify(value.position)}
-                        className={
+                        className={` ${
+                          value.mark === "mark"
+                            ? "blocks-within-checked-ai"
+                            : "player-pos"
+                        }`}
+                      ></div>
+                    ) : (
+                      <div
+                        key={JSON.stringify(value.position)}
+                        className={` ${
                           value.mark === "mark"
                             ? "blocks-within-checked-ai"
                             : "blocks-within-unchecked-ai"
-                        }
+                        }`}
                       ></div>
                     );
                   } else {
@@ -201,14 +273,30 @@ function BattleGround() {
               <div className="horizontal-strip">
                 {aiCell.map((value) => {
                   if (value.position.x === 4) {
-                    return (
+                    let marker = false;
+                    stringifiedPlayerPosition.forEach((position) => {
+                      if (JSON.stringify(value.position) === position) {
+                        marker = true;
+                      }
+                    });
+
+                    return marker ? (
                       <div
                         key={JSON.stringify(value.position)}
-                        className={
+                        className={` ${
+                          value.mark === "mark"
+                            ? "blocks-within-checked-ai"
+                            : "player-pos"
+                        }`}
+                      ></div>
+                    ) : (
+                      <div
+                        key={JSON.stringify(value.position)}
+                        className={` ${
                           value.mark === "mark"
                             ? "blocks-within-checked-ai"
                             : "blocks-within-unchecked-ai"
-                        }
+                        }`}
                       ></div>
                     );
                   } else {
