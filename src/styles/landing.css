@@ -1,0 +1,52 @@
+.credentials-form {
+  height: 100vh;
+  display: flex;
+  row-gap: 100px;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title-name {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+
+  font-size: 70px;
+  text-decoration: underline;
+}
+
+.input-bar {
+  padding: 10px;
+  font-size: 20px;
+  border-style: dashed;
+
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.enter-button {
+  width: 100px;
+  height: 40px;
+  background-color: white;
+
+  border-style: solid;
+  border-radius: 10px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.enter-button:hover {
+  background-color: black;
+  border-color: black;
+  color: white;
+}
+
+.credentials {
+  border-style: solid;
+  border-radius: 20%;
+  padding: 50px;
+  display: flex;
+  max-width: 200px;
+  max-height: 200px;
+  row-gap: 100px;
+
+  flex-direction: column;
+  align-items: center;
+}

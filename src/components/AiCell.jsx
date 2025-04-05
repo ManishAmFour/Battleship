@@ -4,7 +4,6 @@ function AiCell(props) {
   return (
     <>
       <div
-       
         className={`${position}
           ${"blocks-within-unchecked-ai"}`}
       ></div>

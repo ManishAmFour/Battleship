@@ -4,7 +4,7 @@ import Players from "./components/classes/players";
 import Ship from "./components/classes/Ship";
 import { useState, useEffect } from "react";
 import Cell from "./components/Cell";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import AiCell from "./components/AiCell";
 
 function BattleGround() {
@@ -62,20 +62,37 @@ function BattleGround() {
     { position: { x: 4, y: "E" }, mark: "unmark" },
     { position: { x: 4, y: "F" }, mark: "unmark" },
   ]);
-  const userPlayer = new Players("player", PlayerCoordinates);
+  const [block, setBlock] = useState("user-turn");
+  const [userPlayer, setUserPlayer] = useState(
+    new Players("player", PlayerCoordinates)
+  );
 
   const [CompPlayer, setAiComp] = useState(
     new Players("computer", ComputerCoordinates)
   );
-  let prevValue = new Players("computer", ComputerCoordinates);
 
   useEffect(() => {
-    if (prevValue !== CompPlayer) {
-     
+    if (
+      CompPlayer.playerGameBoard.MissedAttacks.length !== 0 ||
+      block === "computer-turn"
+    ) {
+      let randomValue = Math.floor(Math.random() * 30);
+
+      while (aiCell[randomValue].mark === "mark") {
+        randomValue = Math.floor(Math.random() * 30);
+      }
+      userPlayer.playerGameBoard.receiveAttack(aiCell[randomValue].position);
+
+      let NewValue = { ...userPlayer };
+
+      let NewArray = [...aiCell];
+
+      NewArray[randomValue].mark = "mark";
+      setUserPlayer(NewValue);
+      setAiCell(NewArray);
+      setBlock("user-turn");
     }
-
     //if(CompPlayer.playerGameBoard.MissedAttacks.length !== 0 || )
-
     /*
     for (let i = 0; aiCell[randomValue].mark === "mark"; i++) {
       randomValue = Math.floor(Math.random() * 30);
@@ -91,12 +108,18 @@ function BattleGround() {
     }*/
   }, [CompPlayer]);
 
-
   return (
     <div>
-  
       {userPlayer.playerGameBoard.ship.status === true ? (
-        <div>YOU LOST</div>
+        <div>
+          <div>YOU LOST</div>
+          <Link to={"/RegisteringCoordinates/q"}>
+            <button>Restart the game</button>
+          </Link>
+          <Link to={"/"}>
+            <button>Restart from the Home page</button>
+          </Link>
+        </div>
       ) : CompPlayer.playerGameBoard.ship.status === true ? (
         <div>YOU WON</div>
       ) : (
@@ -197,35 +220,40 @@ function BattleGround() {
           </div>
           <div className="play-ground">
             <div className="player">
-              <div className="horizontal-strip"></div>
               <div className="horizontal-strip">
                 <Cell
                   position={{ x: 0, y: "A" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 0, y: "B" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 0, y: "C" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 0, y: "D" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 0, y: "E" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 0, y: "F" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
@@ -233,31 +261,37 @@ function BattleGround() {
               <div className="horizontal-strip">
                 <Cell
                   position={{ x: 1, y: "A" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 1, y: "B" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 1, y: "C" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 1, y: "D" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 1, y: "E" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 1, y: "F" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
@@ -265,31 +299,37 @@ function BattleGround() {
               <div className="horizontal-strip">
                 <Cell
                   position={{ x: 2, y: "A" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 2, y: "B" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 2, y: "C" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 2, y: "D" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 2, y: "E" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 2, y: "F" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
@@ -297,31 +337,37 @@ function BattleGround() {
               <div className="horizontal-strip">
                 <Cell
                   position={{ x: 3, y: "A" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 3, y: "B" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 3, y: "C" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 3, y: "D" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 3, y: "E" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 3, y: "F" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
@@ -329,31 +375,37 @@ function BattleGround() {
               <div className="horizontal-strip">
                 <Cell
                   position={{ x: 4, y: "A" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 4, y: "B" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 4, y: "C" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 4, y: "D" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 4, y: "E" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />
                 <Cell
                   position={{ x: 4, y: "F" }}
+                  startTheGame={setBlock}
                   enemyPosition={CompPlayer}
                   stateUpdation={setAiComp}
                 />

@@ -11,9 +11,11 @@ function Cell(props) {
       let NewValue = { ...props.enemyPosition };
       NewValue.playerGameBoard.MissedAttacks = NewArray;
       props.stateUpdation(NewValue);
+      props.startTheGame("computer-turn");
     } else {
       let NewValue = { ...props.enemyPosition };
       props.stateUpdation(NewValue);
+      props.startTheGame("computer-turn");
     }
   }
 

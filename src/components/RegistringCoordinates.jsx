@@ -36,6 +36,10 @@ function RegisteringCoordinates() {
     { position: { x: 4, y: "E" }, mark: "unmark" },
     { position: { x: 4, y: "F" }, mark: "unmark" },
   ]);
+  let stringifiedArray = Mark.map((value) => {
+    let stringifiedValue = JSON.stringify(value.position);
+    return stringifiedValue;
+  });
   const navigate = useNavigate();
   const [selectedShip, setSelectedShip] = useState("small-ship");
   const [selectedValues, setSelectedValues] = useState([]);
@@ -44,14 +48,23 @@ function RegisteringCoordinates() {
   useEffect(() => {
     if (selectedShip === "selection-done") {
       let CompCoordinates = [];
+
       for (let i = 0; i < 6; i++) {
         let randomValue = Math.floor(Math.random() * 30);
-        Math.floor(Math.random() * 30);
-        CompCoordinates.push(Mark[randomValue].position);
 
-        let finalResult = CompCoordinates.concat(selectedValues);
-        navigate(`/BattleGround/${JSON.stringify(finalResult)}`);
+        while (CompCoordinates.includes(stringifiedArray[randomValue])) {
+          randomValue = Math.floor(Math.random() * 30);
+        }
+        CompCoordinates.push(stringifiedArray[randomValue]);
       }
+      let computerValues = CompCoordinates.map((value) => {
+        return JSON.parse(value);
+      });
+      console.log(computerValues);
+
+      let finalResult = computerValues.concat(selectedValues);
+
+      navigate(`/BattleGround/${JSON.stringify(finalResult)}`);
     }
   }, [selectedShip]);
 
@@ -132,15 +145,18 @@ function RegisteringCoordinates() {
   }
 
   return (
-    <div>
+    <div className="entire-registration-form">
       <div className="blueprint">
         {
-          <div className="player">
+          <div className="player registration-blocks">
             <div className="horizontal-strip">
               {Mark.map((value, index) => {
                 if (value.position.x === 0) {
                   return (
-                    <div key={JSON.stringify(value.position)}>
+                    <div
+                      className="register-option"
+                      key={JSON.stringify(value.position)}
+                    >
                       <div
                         onClick={() => {
                           registringThePlayer(value.position, index);
@@ -162,7 +178,10 @@ function RegisteringCoordinates() {
               {Mark.map((value, index) => {
                 if (value.position.x === 1) {
                   return (
-                    <div key={JSON.stringify(value.position)}>
+                    <div
+                      className="register-option"
+                      key={JSON.stringify(value.position)}
+                    >
                       <div
                         onClick={() => {
                           registringThePlayer(value.position, index);
@@ -184,7 +203,10 @@ function RegisteringCoordinates() {
               {Mark.map((value, index) => {
                 if (value.position.x === 2) {
                   return (
-                    <div key={JSON.stringify(value.position)}>
+                    <div
+                      className="register-option"
+                      key={JSON.stringify(value.position)}
+                    >
                       <div
                         onClick={() => {
                           registringThePlayer(value.position, index);
@@ -206,7 +228,10 @@ function RegisteringCoordinates() {
               {Mark.map((value, index) => {
                 if (value.position.x === 3) {
                   return (
-                    <div key={JSON.stringify(value.position)}>
+                    <div
+                      className="register-option"
+                      key={JSON.stringify(value.position)}
+                    >
                       <div
                         onClick={() => {
                           registringThePlayer(value.position, index);
@@ -228,7 +253,10 @@ function RegisteringCoordinates() {
               {Mark.map((value, index) => {
                 if (value.position.x === 4) {
                   return (
-                    <div key={JSON.stringify(value.position)}>
+                    <div
+                      className="register-option"
+                      key={JSON.stringify(value.position)}
+                    >
                       <div
                         onClick={() => {
                           registringThePlayer(value.position, index);
